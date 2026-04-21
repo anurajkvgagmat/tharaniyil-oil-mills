@@ -133,7 +133,7 @@ h4 {
     padding: 4rem 0;
     position: relative;
     overflow: hidden;
-    background-image: url(/images/Banner.png);
+    background-image: url(../images/Banner.png);
     background-size: cover;
     background-position: center;
 }
@@ -284,7 +284,7 @@ h4 {
 .story-section {
     padding: 5rem 0;
     /* background: var(--cream-bg); */
-    background-image: url(/images/Color.jpeg);
+    background-image: url(../images/Color.jpeg);
     background-size: cover;
     background-position: center;
 }
@@ -375,7 +375,7 @@ h4 {
 .reviews-section {
     padding: 5rem 0;
     /* background: var(--light-cream); */
-    background-image: url(/images/Color.jpeg);
+    background-image: url(../images/Color.jpeg);
     background-size: cover;
     background-position: center;
 }
@@ -610,7 +610,7 @@ h4 {
 .enquiry-section {
     padding: 5rem 0;
     background: var(--light-cream);
-    background-image: url(/images/Banner.png);
+    background-image: url(../images/Banner.png);
     background-size: cover;
     background-position: center;
 }
