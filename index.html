@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tharaniyil Oil Mills</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green-dark: #2d5016;
+    --green-mid: #4a7c2f;
+    --green-light: #6fa040;
+    --cream: #f5f0e8;
+    --warm-white: #fdfaf4;
+    --gold: #c8a94a;
+    --text-dark: #1a1a1a;
+    --text-gray: #555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lato', sans-serif; color: var(--text-dark); background: var(--warm-white); }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,250,244,0.97);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 60px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 44px; }
+  .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul li a { text-decoration: none; color: var(--text-dark); font-size: 0.92rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color .2s; }
+  nav ul li a:hover { color: var(--green-mid); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--green-dark); display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #e8dfc8 0%, #d4c9a8 40%, #c5b88a 100%);
+    min-height: 520px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; overflow: hidden; position: relative;
+    padding: 60px 60px 60px 80px;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -60px; right: 0;
+    width: 55%; height: calc(100% + 60px);
+    background: linear-gradient(160deg, #d4c59a 0%, #b8a87a 100%);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 0;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900; color: var(--green-dark);
+    line-height: 1.1; margin-bottom: 18px;
+  }
+  .hero-text p { color: #4a3e28; font-size: 1rem; line-height: 1.7; max-width: 380px; margin-bottom: 32px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(200,169,74,0.4);
+    border-radius: 40px; padding: 8px 20px; font-size: 0.82rem; color: var(--green-dark); font-weight: 700;
+  }
+  .hero-badge::before { content: '🌿'; font-size: 1rem; }
+  .hero-img { position: relative; z-index: 1; display: flex; justify-content: center; align-items: flex-end; }
+  .hero-img .bottle-group { display: flex; align-items: flex-end; gap: -10px; }
+  .hero-img img { max-height: 360px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
+  .coconut-deco { position: absolute; top: 30px; right: 120px; font-size: 5rem; z-index: 0; opacity: 0.25; }
+  .award-badge {
+    position: absolute; bottom: 30px; right: 30px; z-index: 2;
+    background: rgba(255,255,255,0.7); border: 2px solid var(--gold);
+    border-radius: 50%; width: 80px; height: 80px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 0.55rem; font-weight: 700; color: var(--green-dark); text-align: center; line-height: 1.3;
+  }
+  .award-badge::before { content: '🏆'; font-size: 1.4rem; }
+
+  /* ── CERTIFICATIONS ── */
+  .certifications {
+    background: #fff; padding: 28px 60px;
+    display: flex; align-items: center; justify-content: center; gap: 50px;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+  }
+  .cert-item {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 0.72rem; font-weight: 700; color: var(--text-gray); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .cert-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; border: 2px solid #ddd;
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+  }
+  .cert-icon.iaf { border-color: #1a3a8a; background: linear-gradient(135deg, #e8edf8, #d0d9f0); }
+  .cert-icon.iso { border-color: #7a1a1a; background: linear-gradient(135deg, #f5e8e8, #edd0d0); }
+  .cert-icon.gmp { border-color: #1a6a3a; background: linear-gradient(135deg, #e8f5ee, #d0eddc); }
+  .cert-icon.fssai { border-color: #8a6a1a; background: linear-gradient(135deg, #f5f0e0, #ede0c8); }
+
+  /* ── ABOUT / OUR STORY ── */
+  .about { background: var(--cream); padding: 70px 60px; }
+  .tab-switcher {
+    display: flex; justify-content: center; margin-bottom: 48px; gap: 0;
+    border: 2px solid var(--green-dark); border-radius: 40px; overflow: hidden; width: fit-content; margin-inline: auto;
+  }
+  .tab-btn {
+    padding: 12px 40px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; border: none; transition: all .25s; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tab-btn.active { background: var(--green-dark); color: #fff; }
+  .tab-btn:not(.active) { background: transparent; color: var(--green-dark); }
+  .tab-content { display: none; }
+  .tab-content.active { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: center; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .about-media { position: relative; border-radius: 14px; overflow: hidden; }
+  .about-media img { width: 100%; height: 320px; object-fit: cover; display: block; }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: transform .2s;
+  }
+  .play-btn:hover { transform: translate(-50%,-50%) scale(1.1); }
+  .about-text h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--green-dark); margin-bottom: 16px; }
+  .about-text p { color: var(--text-gray); line-height: 1.9; font-size: 0.95rem; }
+
+  /* ── REVIEWS ── */
+  .reviews { background: #fff; padding: 70px 60px; }
+  .reviews h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 48px; }
+  .review-carousel { position: relative; }
+  .review-track { display: flex; overflow: hidden; }
+  .review-card {
+    min-width: 100%; padding: 40px 60px; background: var(--green-dark);
+    border-radius: 16px; color: #fff; text-align: center;
+    transition: opacity .3s;
+  }
+  .reviewer-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: #e0f0c8; margin-bottom: 4px; }
+  .reviewer-date { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+  .review-text { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.9); font-style: italic; max-width: 560px; margin: 0 auto 24px; }
+  .stars { font-size: 1.4rem; color: var(--gold); letter-spacing: 4px; }
+  .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 24px; }
+  .carousel-btn {
+    width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--green-dark);
+    background: transparent; color: var(--green-dark); font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all .2s;
+  }
+  .carousel-btn:hover { background: var(--green-dark); color: #fff; }
+  .dots { display: flex; gap: 8px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background .2s; }
+  .dot.active { background: var(--green-dark); }
+
+  /* ── GALLERY ── */
+  .gallery { padding: 70px 60px; background: var(--cream); }
+  .gallery h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 48px; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .gallery-item {
+    border-radius: 12px; overflow: hidden; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #c8b98a, #a89060);
+    display: flex; align-items: center; justify-content: center; font-size: 3rem;
+    cursor: pointer; transition: transform .3s, box-shadow .3s;
+    position: relative;
+  }
+  .gallery-item:hover { transform: scale(1.03); box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-item-1 { background: linear-gradient(135deg, #d4c090, #b8a070); }
+  .gallery-item-2 { background: linear-gradient(135deg, #8a6030, #6a4020); }
+  .gallery-item-3 { background: linear-gradient(135deg, #c0a870, #a08850); }
+
+  /* ── ENQUIRY ── */
+  .enquiry { padding: 70px 0; background: var(--warm-white); }
+  .enquiry h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 48px; }
+  .enquiry-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    min-height: 380px; max-width: 1100px; margin: 0 auto;
+    border-radius: 18px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  }
+  .enquiry-img {
+    background: linear-gradient(160deg, #c8b888 0%, #a09060 100%);
+    display: flex; align-items: center; justify-content: center; font-size: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .enquiry-img img { width: 100%; height: 100%; object-fit: cover; }
+  .enquiry-form { background: #fff; padding: 48px 48px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-gray); margin-bottom: 8px; }
+  .form-group input, .form-group textarea {
+    width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Lato', sans-serif; font-size: 0.95rem;
+    color: var(--text-dark); transition: border-color .2s; outline: none; resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--green-mid); }
+  .form-group textarea { height: 110px; }
+  .submit-btn {
+    background: var(--green-dark); color: #fff; border: none;
+    padding: 14px 40px; border-radius: 8px; font-family: 'Lato', sans-serif;
+    font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: background .2s, transform .15s;
+  }
+  .submit-btn:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+  /* ── STORE ── */
+  .store { padding: 60px; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .store-map {
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12); height: 260px;
+  }
+  .store-map iframe { width: 100%; height: 100%; border: 0; }
+  .store-info h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--green-dark); margin-bottom: 20px; font-weight: 900; letter-spacing: 0.02em; }
+  .store-info p { color: var(--text-gray); line-height: 2; font-size: 0.95rem; }
+  .store-info strong { color: var(--text-dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark); color: rgba(255,255,255,0.85);
+    padding: 56px 60px 28px;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-brand .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 4px; }
+  .footer-brand .since { font-size: 0.78rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+  .footer-nav h4 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 18px; }
+  .footer-nav ul { list-style: none; }
+  .footer-nav ul li { margin-bottom: 10px; }
+  .footer-nav ul li a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+  .footer-nav ul li a:hover { color: #fff; }
+  .footer-social h4 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 18px; }
+  .social-icons { display: flex; gap: 14px; }
+  .social-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; cursor: pointer; transition: background .2s;
+    text-decoration: none; color: #fff;
+  }
+  .social-icon:hover { background: rgba(255,255,255,0.25); }
+  .footer-bottom {
+    background: var(--green-dark);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 18px 60px;
+    text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.4);
+  }
+
+  /* ── PRODUCTS SECTION ── */
+  .products { padding: 70px 60px; background: #fff; }
+  .products h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 12px; }
+  .products .sub { text-align: center; color: var(--text-gray); margin-bottom: 48px; font-size: 0.95rem; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .product-card {
+    border-radius: 16px; overflow: hidden; border: 1px solid #eee;
+    transition: transform .3s, box-shadow .3s; background: var(--warm-white);
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .product-img {
+    height: 200px; background: linear-gradient(135deg, #e8dfc8, #c8b888);
+    display: flex; align-items: center; justify-content: center; font-size: 4rem;
+  }
+  .product-info { padding: 22px; }
+  .product-info h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 8px; color: var(--green-dark); }
+  .product-info p { font-size: 0.85rem; color: var(--text-gray); line-height: 1.7; }
+  .product-tag { display: inline-block; margin-top: 12px; font-size: 0.72rem; font-weight: 700; color: var(--green-mid); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── SECTION DIVIDER ── */
+  .divider { height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 60px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; padding: 40px 24px; min-height: auto; }
+    .hero::before { display: none; }
+    .hero-img { margin-top: 24px; }
+    .certifications { padding: 20px 24px; gap: 24px; }
+    .about, .reviews, .gallery, .enquiry, .store, .products { padding: 48px 24px; }
+    .tab-content.active { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .enquiry-inner { grid-template-columns: 1fr; }
+    .enquiry-img { height: 200px; }
+    .store { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 28px; padding: 40px 24px 24px; }
+    .footer-bottom { padding: 16px 24px; }
+    .divider { margin: 0 24px; }
+    .products-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div style="width:40px;height:40px;background:var(--green-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;">🌿</div>
+    <span>THARANIYIL<br>OIL MILLS</span>
+  </a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#contact">Contacts</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="hamburger" onclick="this.nextElementSibling && alert('Menu')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <h1>THARANIYIL<br>OIL MILLS</h1>
+    <p>Pure, natural, and cold-pressed oils crafted with generations of tradition. Experience the authentic taste and nourishment of nature's finest.</p>
+    <div class="hero-badge">100% Natural &amp; Pure · Since 1969</div>
+    <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="#products" style="background:var(--green-dark);color:#fff;padding:13px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.88rem;letter-spacing:0.06em;text-transform:uppercase;transition:background .2s;" onmouseover="this.style.background='#4a7c2f'" onmouseout="this.style.background='var(--green-dark)'">Our Products</a>
+      <a href="#about" style="background:transparent;color:var(--green-dark);padding:13px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.88rem;letter-spacing:0.06em;text-transform:uppercase;border:2px solid var(--green-dark);transition:all .2s;" onmouseover="this.style.background='var(--green-dark)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--green-dark)'">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <!-- Placeholder for product bottle images -->
+    <div style="display:flex;align-items:flex-end;gap:16px;">
+      <div style="width:100px;background:linear-gradient(180deg,#e8dfc8,#c8b888);border-radius:8px 8px 4px 4px;height:260px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.2));position:relative;">
+        🫙
+        <div style="position:absolute;bottom:16px;font-size:0.55rem;color:var(--green-dark);font-weight:700;text-align:center;line-height:1.4;">THARANIYIL<br>COCONUT OIL</div>
+      </div>
+      <div style="width:80px;background:linear-gradient(180deg,#d4c090,#b8a070);border-radius:8px 8px 4px 4px;height:200px;display:flex;align-items:center;justify-content:center;font-size:2rem;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.2));position:relative;">
+        🥥
+        <div style="position:absolute;bottom:12px;font-size:0.5rem;color:var(--green-dark);font-weight:700;text-align:center;line-height:1.4;">NATURAL<br>OIL</div>
+      </div>
+      <div style="width:90px;background:linear-gradient(180deg,#c8b070,#a89050);border-radius:8px 8px 4px 4px;height:230px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.2));position:relative;">
+        🌿
+        <div style="position:absolute;bottom:14px;font-size:0.52rem;color:#fff;font-weight:700;text-align:center;line-height:1.4;">PURE<br>OIL</div>
+      </div>
+    </div>
+    <div class="award-badge">Lorem ipsum<br>award</div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications">
+  <div class="cert-item">
+    <div class="cert-icon iaf">🏅</div>
+    IAF Certified
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon iso">🏆</div>
+    ISO Certified
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon gmp">✅</div>
+    GMP Certified
+  </div>
+  <div class="cert-icon fssai" style="align-self:center;font-size:2rem;">🪪</div>
+  <div class="cert-item">
+    FSSAI Approved
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="tab-switcher">
+    <button class="tab-btn" onclick="switchTab('story', this)">Our Story</button>
+    <button class="tab-btn active" onclick="switchTab('leaders', this)">Our Leaders</button>
+  </div>
+
+  <div id="tab-story" class="tab-content">
+    <div class="about-media">
+      <div style="width:100%;height:320px;background:linear-gradient(135deg,#c8b888,#a09060);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:5rem;">🥥</div>
+      <div class="play-btn">▶</div>
+    </div>
+    <div class="about-text">
+      <h2>Our Story</h2>
+      <p>Tharaniyil Oil Mills began its journey in 1969, founded by T.V. Chacko with a simple yet powerful vision: to bring pure, natural coconut oil to every home. Rooted in the rich traditions of Kerala, our mill has grown from a small family operation into a trusted name known for quality, integrity, and authenticity. Every drop of oil we produce carries the warmth of our land and the dedication of three generations who have poured their heart into this craft. We remain committed to our origins — cold-pressing the finest coconuts to deliver oil that is as natural and wholesome today as it was over five decades ago.</p>
+    </div>
+  </div>
+
+  <div id="tab-leaders" class="tab-content active">
+    <div class="about-media">
+      <div style="width:100%;height:320px;background:linear-gradient(135deg,#8a7050,#604030);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:5rem;">👨‍👩‍👦</div>
+      <div class="play-btn">▶</div>
+    </div>
+    <div class="about-text">
+      <h2>Our Leaders</h2>
+      <p>Leadership at Tharaniyil Oil Mill is built on quiet commitment and shared purpose. After founder T.V. Chacko, the mill is guided by his sons Raju Tharaniyil and Jolly Tharaniyil, whose steady leadership keeps the enterprise true to its roots while embracing steady growth. Shiny Raju continues to support the business as a partner, strengthening its foundation with care and consistency. Representing the third generation, Cyriac Tharaniyil is closely involved in day-to-day operations, driving sales and maintaining the quality and relationships that define Tharaniyil's reputation. The wider Tharaniyil family also contributes actively through branding, outreach, and marketing efforts, ensuring the legacy remains vibrant and relevant. Together, they lead with humility — guided by family, grounded in tradition, and united by trust.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <h2>Our Products</h2>
+  <p class="sub">Pure, natural oils crafted with care and tradition</p>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">🥥</div>
+      <div class="product-info">
+        <h3>Cold-Pressed Coconut Oil</h3>
+        <p>Extracted using traditional cold-press methods to retain maximum nutrients, aroma, and natural goodness.</p>
+        <span class="product-tag">Best Seller</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(135deg,#d4c090,#b8a070);">🌿</div>
+      <div class="product-info">
+        <h3>Natural Sesame Oil</h3>
+        <p>Rich in antioxidants and essential fatty acids, our sesame oil is perfect for cooking and skin care.</p>
+        <span class="product-tag">Premium</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:linear-gradient(135deg,#c0c890,#a0a870);">🌻</div>
+      <div class="product-info">
+        <h3>Pure Sunflower Oil</h3>
+        <p>Light, mild-flavored oil that is heart-healthy and ideal for everyday cooking needs.</p>
+        <span class="product-tag">New</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <h2>Customer Reviews</h2>
+  <div class="review-carousel">
+    <div class="review-track" id="reviewTrack">
+      <div class="review-card">
+        <div class="reviewer-name">Sarah</div>
+        <div class="reviewer-date">3 days ago</div>
+        <div class="review-text">"The coconut oil from Tharaniyil is absolutely wonderful — pure, fragrant, and exactly what I've been looking for. You can truly taste the difference from mass-produced oils. Will definitely be ordering again!"</div>
+        <div class="stars">★★★★☆</div>
+      </div>
+      <div class="review-card">
+        <div class="reviewer-name">Priya Menon</div>
+        <div class="reviewer-date">1 week ago</div>
+        <div class="review-text">"I have been using Tharaniyil coconut oil for years. The quality never disappoints — it is so pure and fragrant. My family trusts no other brand for our daily cooking and hair care routine."</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="review-card">
+        <div class="reviewer-name">Rajesh Kumar</div>
+        <div class="reviewer-date">2 weeks ago</div>
+        <div class="review-text">"Excellent product! The cold-pressed coconut oil has a beautiful natural aroma and a clean taste. You can really feel the quality in every drop. Highly recommended for health-conscious families."</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="review-card">
+        <div class="reviewer-name">Anita George</div>
+        <div class="reviewer-date">1 month ago</div>
+        <div class="review-text">"Authentic Kerala coconut oil at its finest! My grandmother always said real coconut oil should smell like coconuts — and this one does. Thank you Tharaniyil for preserving this tradition."</div>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevReview()">&#8592;</button>
+      <div class="dots" id="dots">
+        <div class="dot active" onclick="goToReview(0)"></div>
+        <div class="dot" onclick="goToReview(1)"></div>
+        <div class="dot" onclick="goToReview(2)"></div>
+        <div class="dot" onclick="goToReview(3)"></div>
+      </div>
+      <button class="carousel-btn" onclick="nextReview()">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item gallery-item-1">🥥</div>
+    <div class="gallery-item gallery-item-2">🫙</div>
+    <div class="gallery-item gallery-item-3">🌿</div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#a0c890,#609060);">🌻</div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#d0b880,#a09050);">🏭</div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#c0a880,#907850);">🍃</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ENQUIRY -->
+<section class="enquiry" id="contact">
+  <h2>Enquiry</h2>
+  <div class="enquiry-inner">
+    <div class="enquiry-img">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:30px;">
+        <div style="font-size:5rem;">🫙</div>
+        <div style="font-size:3rem;">🥥</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;text-align:center;font-weight:700;">Pure Natural<br>Coconut Oil</div>
+      </div>
+    </div>
+    <div class="enquiry-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name" />
+      </div>
+      <div class="form-group">
+        <label>Your E-mail Address</label>
+        <input type="email" placeholder="Enter your email" />
+      </div>
+      <div class="form-group">
+        <label>Leave Your Message</label>
+        <textarea placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="handleSubmit()">Submit</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STORE -->
+<section class="store">
+  <div class="store-map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.3!2d76.47!3d10.11!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA2JzM2LjAiTiA3NsKwMjgnMTIuMCJF!5e0!3m2!1sen!2sin!4v1617000000000!5m2!1sen!2sin"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  <div class="store-info">
+    <h2>VISIT OUR STORE</h2>
+    <p>
+      <strong>Tharaniyil Oil Mill</strong><br>
+      Raveens Road Thodupuzha<br>
+      PIN 685200<br>
+      Contact: <strong>9445526775</strong>
+    </p>
+    <a href="https://maps.google.com" target="_blank" style="display:inline-block;margin-top:20px;background:var(--green-dark);color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;">Get Directions</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo-text">THARANIYIL<br>OIL MILLS</div>
+    <div class="since">Since 1969</div>
+    <p style="margin-top:18px;font-size:0.85rem;line-height:1.8;color:rgba(255,255,255,0.6);max-width:260px;">Pure, natural oils crafted with generations of trust and tradition from the heart of Kerala.</p>
+  </div>
+  <div class="footer-nav">
+    <h4>Navigation</h4>
+    <ul>
+      <li><a href="#home">About</a></li>
+      <li><a href="#products">Product</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </div>
+  <div class="footer-social">
+    <h4>Reach Us</h4>
+    <div class="social-icons">
+      <a href="#" class="social-icon" title="WhatsApp">💬</a>
+      <a href="#" class="social-icon" title="Instagram">📷</a>
+      <a href="#" class="social-icon" title="Facebook">👤</a>
+    </div>
+    <p style="margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.8;">
+      📞 9445526775<br>
+      📍 Thodupuzha, Kerala
+    </p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  copyright @tharaniyil.oilmills
+</div>
+
+<script>
+  // Tab switcher
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Review carousel
+  let currentReview = 0;
+  const reviews = document.querySelectorAll('.review-card');
+  const dots = document.querySelectorAll('.dot');
+
+  function goToReview(n) {
+    reviews.forEach((r, i) => {
+      r.style.transform = `translateX(${(i - n) * 100}%)`;
+    });
+    dots.forEach(d => d.classList.remove('active'));
+    dots[n].classList.add('active');
+    currentReview = n;
+  }
+
+  function nextReview() {
+    goToReview((currentReview + 1) % reviews.length);
+  }
+
+  function prevReview() {
+    goToReview((currentReview - 1 + reviews.length) % reviews.length);
+  }
+
+  // Init carousel positioning
+  function initCarousel() {
+    const track = document.getElementById('reviewTrack');
+    track.style.position = 'relative';
+    reviews.forEach((r, i) => {
+      r.style.position = 'absolute';
+      r.style.width = '100%';
+      r.style.transition = 'transform 0.4s ease';
+      r.style.transform = `translateX(${i * 100}%)`;
+    });
+    track.style.height = reviews[0].offsetHeight + 'px';
+    // Update height on resize
+    window.addEventListener('resize', () => {
+      track.style.height = reviews[0].offsetHeight + 'px';
+    });
+  }
+
+  window.addEventListener('load', () => {
+    initCarousel();
+    // Auto-play
+    setInterval(nextReview, 5000);
+  });
+
+  // Form submission
+  function handleSubmit() {
+    const name = document.querySelector('.enquiry-form input[type="text"]').value;
+    const email = document.querySelector('.enquiry-form input[type="email"]').value;
+    const msg = document.querySelector('.enquiry-form textarea').value;
+    if (!name || !email || !msg) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    alert('Thank you, ' + name + '! Your message has been sent. We will get back to you shortly.');
+    document.querySelector('.enquiry-form input[type="text"]').value = '';
+    document.querySelector('.enquiry-form input[type="email"]').value = '';
+    document.querySelector('.enquiry-form textarea').value = '';
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .gallery-item, .cert-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
