@@ -259,3 +259,15 @@ sections.forEach(section => {
     observer.observe(section);
 });
 
+const mainImage = document.getElementById("mainImage");
+const thumbnails = document.querySelectorAll(".thumb");
+
+thumbnails.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+        // Swap images
+        let temp = mainImage.src;
+        mainImage.src = thumb.src;
+        thumb.src = temp;
+    });
+});
+
