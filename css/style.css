@@ -281,8 +281,9 @@ h4 {
     padding: 5rem 0;
     /* background: var(--cream-bg); */
     background-image: url(../images/Color.jpeg);
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: repeat;
     /* overflow: hidden; */
 }
 
@@ -411,11 +412,13 @@ h4 {
 
 /* Reviews Section */
 .reviews-section {
-    padding: 5rem 0;
+    padding: 0 0 5rem 0;
     /* background: var(--light-cream); */
     background-image: url(../images/Color.jpeg);
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: repeat;
+    overflow: hidden;
 }
 
 .section-title {
@@ -589,20 +592,33 @@ h4 {
 
 .gallery-track-wrapper {
     overflow: hidden;
+    width: 100%;
     flex: 1;
     border-radius: 15px;
 }
 
 .gallery-track {
     display: flex;
-    gap: 1.5rem;
+    gap: 24px;
     transition: transform 0.5s ease;
 }
 
-.gallery-item {
+/* .gallery-item {
     min-width: calc(33.333% - 1rem);
     max-width: calc(33.333% - 1rem);
     flex: 0 0 calc(33.333% - 1rem);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+} */
+
+.gallery-item {
+    /* Remove these three lines: */
+    /* min-width: calc(33.333% - 1rem); */
+    /* max-width: calc(33.333% - 1rem); */
+    /* flex: 0 0 calc(33.333% - 1rem); */
+    
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
@@ -895,6 +911,14 @@ h4 {
         flex-wrap: wrap;
     }
 
+    .story-section {
+        padding: 3rem 0;
+    }
+
+    .enquiry-section {
+        padding: 0 0 5rem 0;
+    }
+
     .story-grid {
         grid-template-columns: 1fr;
     }
@@ -935,13 +959,13 @@ h4 {
         flex-wrap: wrap;
     }
 
-    .story-section {
+    /* .story-section {
         background-size: auto;
     }
 
     .reviews-section {
         background-size: auto;
-    }
+    } */
 }
 
 @media (max-width: 640px) {
@@ -988,9 +1012,19 @@ h4 {
 }
 
 @media (max-width: 768px) {
-    .gallery {
+    /* .gallery {
         flex-direction: column;
         align-items: center;
+    } */
+
+    .gallery-track {
+        gap: 0;  /* remove gap, JS handles spacing */
+    }
+
+    .gallery-item {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
     }
 
     .side-boxes {

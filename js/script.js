@@ -134,30 +134,61 @@ const galleryPrevBtn = document.querySelector('.gallery-nav.prev');
 const galleryNextBtn = document.querySelector('.gallery-nav.next');
 let galleryPage = 0;
 
+// function getVisibleCount() {
+//     if (window.innerWidth <= 640) return 1;
+//     if (window.innerWidth <= 968) return 2;
+//     return 3;
+// }
+
 function getVisibleCount() {
-    if (window.innerWidth <= 640) return 1;
-    if (window.innerWidth <= 968) return 2;
-    return 3;
+    if (window.innerWidth < 768) return 1;   // mobile
+    if (window.innerWidth < 1024) return 2;  // tablet
+    return 3;                                 // desktop
 }
 
 function getMaxPage() {
     return Math.max(0, galleryItems.length - getVisibleCount());
 }
 
+// function updateGallery() {
+//     const visibleCount = getVisibleCount();
+//     const wrapper = document.querySelector('.gallery-track-wrapper');
+//     const wrapperWidth = wrapper.offsetWidth;
+//     const gap = window.innerWidth < 768 ? 0 : 24;
+//     const itemWidth = (wrapperWidth - gap * (visibleCount - 1)) / visibleCount;
+    
+//     // Set item widths explicitly
+//     galleryItems.forEach(item => {
+//         item.style.minWidth = itemWidth + 'px';
+//         item.style.maxWidth = itemWidth + 'px';
+//         item.style.flex = '0 0 ' + itemWidth + 'px';
+//     });
+    
+//     const offset = galleryPage * (itemWidth + gap);
+//     galleryTrack.style.transform = `translateX(-${offset}px)`;
+// }
+
 function updateGallery() {
     const visibleCount = getVisibleCount();
     const wrapper = document.querySelector('.gallery-track-wrapper');
     const wrapperWidth = wrapper.offsetWidth;
-    const gap = 24;
+
+    if (!wrapperWidth) {
+        requestAnimationFrame(updateGallery);
+        return;
+    }
+
+    const gap = window.innerWidth < 768 ? 0 : 24;
     const itemWidth = (wrapperWidth - gap * (visibleCount - 1)) / visibleCount;
-    
-    // Set item widths explicitly
-    galleryItems.forEach(item => {
+
+    galleryItems.forEach((item, index) => {
         item.style.minWidth = itemWidth + 'px';
         item.style.maxWidth = itemWidth + 'px';
         item.style.flex = '0 0 ' + itemWidth + 'px';
+        // Add gap as margin-right on all except last
+        item.style.marginRight = index < galleryItems.length - 1 ? gap + 'px' : '0px';
     });
-    
+
     const offset = galleryPage * (itemWidth + gap);
     galleryTrack.style.transform = `translateX(-${offset}px)`;
 }
