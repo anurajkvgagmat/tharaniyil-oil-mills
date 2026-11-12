@@ -73,15 +73,21 @@ function prevReview() {
     showReview(currentReviewIndex);
 }
 
-reviewNextBtn.addEventListener('click', nextReview);
-reviewPrevBtn.addEventListener('click', prevReview);
+// Only wire up the custom carousel if its markup exists
+// (reviews are currently rendered by the Elfsight widget instead).
+const hasReviewCarousel = reviewCards.length > 0 && reviewPrevBtn && reviewNextBtn;
 
-reviewDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        currentReviewIndex = index;
-        showReview(currentReviewIndex);
+if (hasReviewCarousel) {
+    reviewNextBtn.addEventListener('click', nextReview);
+    reviewPrevBtn.addEventListener('click', prevReview);
+
+    reviewDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentReviewIndex = index;
+            showReview(currentReviewIndex);
+        });
     });
-});
+}
 
 // // Auto-rotate reviews
 // setInterval(nextReview, 5000);
@@ -125,7 +131,9 @@ reviewDots.forEach((dot, index) => {
 // setInterval(nextGallerySlide, 4000);
 
 
-setInterval(nextReview, 5000);
+if (hasReviewCarousel) {
+    setInterval(nextReview, 5000);
+}
 
 // Gallery - 3 per view sliding carousel
 const galleryTrack = document.querySelector('.gallery-track');

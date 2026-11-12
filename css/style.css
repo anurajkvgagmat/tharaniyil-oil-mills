@@ -216,21 +216,37 @@ h4 {
 
 .badge-item {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
+    /* Width-driven so the 3:2 logo keeps its natural proportions */
+    width: clamp(150px, 16vw, 230px);
+    animation: badgeIn 0.9s ease-out 0.3s both;
 }
 
 .badge-item img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
+    /* Soft warm shadow lifts the gold off the cream background */
+    filter: drop-shadow(0 6px 14px rgba(120, 85, 20, 0.25));
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.badge-item:hover {
-    transform: translateY(-5px);
+.badge-item:hover img {
+    transform: translateY(-4px) scale(1.03);
+    filter: drop-shadow(0 12px 22px rgba(120, 85, 20, 0.35));
+}
+
+@keyframes badgeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Certifications */
@@ -869,8 +885,10 @@ h4 {
     }
 
     .nav-menu {
-        position: fixed;
-        top: 70px;
+        /* Anchored to the bottom edge of the fixed navbar, so it always
+           sits flush under the header whatever the header's height is */
+        position: absolute;
+        top: 100%;
         right: -100%;
         width: 100%;
         max-width: 300px;
@@ -879,7 +897,7 @@ h4 {
         padding: 2rem;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
         transition: right 0.3s ease;
-        height: calc(100vh - 70px);
+        height: 100vh;
     }
 
     .nav-menu.active {
@@ -971,6 +989,10 @@ h4 {
 
     .hero-title {
         font-size: 2rem;
+    }
+
+    .badge-item {
+        width: 140px;
     }
 
     .section-title {
