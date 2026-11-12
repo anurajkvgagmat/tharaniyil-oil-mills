@@ -227,14 +227,11 @@ h4 {
     display: block;
     width: 100%;
     height: auto;
-    /* Soft warm shadow lifts the gold off the cream background */
-    filter: drop-shadow(0 6px 14px rgba(120, 85, 20, 0.25));
-    transition: transform 0.4s ease, filter 0.4s ease;
+    transition: transform 0.4s ease;
 }
 
 .badge-item:hover img {
     transform: translateY(-4px) scale(1.03);
-    filter: drop-shadow(0 12px 22px rgba(120, 85, 20, 0.35));
 }
 
 @keyframes badgeIn {
